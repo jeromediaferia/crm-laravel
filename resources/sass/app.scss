@@ -1,4 +1,8 @@
-// Import fonts
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-// Import de BOOSTRAP V4.5
-@import "~bootstrap/scss/bootstrap";
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';

@@ -16,3 +16,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('layouts.master');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Restriction vers mon compte
+Route::resource('/mon-compte', 'AccountController');
+
+// Restriction administration
+//Route::->prefix('/')->->middleware('auth')->group(function(){
+//    Route::resource('/articles', 'Admin\ArticleController');
+//    //
+//});
