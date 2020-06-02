@@ -24,8 +24,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Restriction vers mon compte
 Route::resource('/mon-compte', 'AccountController');
 
+// Restriction admin simplifiée
+Route::get('/admin', 'Admin\AdminController@index')->middleware(['auth', 'isAdmin']);
+
 // Restriction administration
-//Route::->prefix('/')->->middleware('auth')->group(function(){
-//    Route::resource('/articles', 'Admin\ArticleController');
+//Route::name('admin.')->prefix('admin')->middleware('auth')->group(function(){
+//    Route::resource('articles', 'Admin\ArticleController');
 //    //
 //});
