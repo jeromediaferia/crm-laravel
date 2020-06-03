@@ -14,10 +14,14 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         // name, email, password
-        User::create([
+        $user = User::create([
             'name' => 'Jérôme',
             'email' => 'test@test.com',
             'password' => Hash::make('000000')
         ]);
+
+        // On ajoute le role
+        $user->roles()->sync([2]);
+
     }
 }

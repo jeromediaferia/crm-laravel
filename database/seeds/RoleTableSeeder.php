@@ -17,7 +17,5 @@ class RoleTableSeeder extends Seeder
             ['name' => 'admin'],
             ['name' => 'subscriber']
         ]);
-
-        RoleUser::insert(['user_id' => 1, 'role_id' => 1]);
     }
 }
