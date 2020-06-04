@@ -42,6 +42,9 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function(){
         }
         return response()->file(storage_path('app/prive/images/'.$imageName));
     })->name('image');
+
+    // Ajout d'utilisateur dans notre application avec FETCH/AJAX
+    Route::resource('users', 'Admin\UserController');
 });
 
 
