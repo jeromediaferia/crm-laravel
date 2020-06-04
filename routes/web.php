@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +34,14 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function(){
 //    Route::resource('articles', 'Admin\ArticleController');
     // Upload de fichier
     Route::resource('employes', 'Admin\EmployeController');
-});
 
-Route::get('private-image/{imageName}', function($imageName){
-    dd(storage_path('app/prive/images/'.$imageName));
+    // Restriction des images pour les administrateur
+    Route::get('private-image/{imageName}', function($imageName){
+        if( Gate::denies('isAdmin') ){
+            abort(403);
+        }
+        return response()->file(storage_path('app/prive/images/'.$imageName));
+    })->name('image');
 });
 
 

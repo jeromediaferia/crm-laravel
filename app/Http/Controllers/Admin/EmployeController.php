@@ -65,8 +65,7 @@ class EmployeController extends Controller
         $newImage->name = $imageName;
         $newImage->save();
 
-        return view('admin.employes.index');
-
+        return redirect('admin/employes');
     }
 
     /**
