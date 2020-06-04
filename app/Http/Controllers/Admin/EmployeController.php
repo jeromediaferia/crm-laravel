@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEmploye;
 use App\Model\Employe;
+use App\Model\StoreImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeController extends Controller
 {
@@ -16,7 +18,9 @@ class EmployeController extends Controller
      */
     public function index()
     {
-        //
+        $image = StoreImage::find(2);
+
+        return view('admin.employes.index', compact('image'));
     }
 
     /**
@@ -37,8 +41,32 @@ class EmployeController extends Controller
      */
     public function store(StoreEmploye $request)
     {
+        // Si je veux récupérer tous les champs d'un formulaire
+        $values = $request->validated();
+//        dd($values);
         // Mécanique pour vérifier le type d'image + le stockage vers storage et l'insert du nom en base
-        dd($request);
+        // On stock l'image
+        $image = $request->file('image');
+        // On crée un répertoire "images" si celui-ci n'est pas créé
+        $folder = 'public/images/';
+        // Je crée le repertoire
+        Storage::makeDirectory($folder);
+        $imageName = uniqid().'.'.$image->extension();
+        $image->storeAs($folder, $imageName);
+
+        //Autre dossier privé
+        $privateFolder = 'prive/images/';
+        Storage::makeDirectory($privateFolder);
+        // Je copie l'image déjà présente dans public vers privé
+        Storage::copy($folder.$imageName, $privateFolder.$imageName);
+
+        // Sauvegarde en base de donnée de l'image
+        $newImage = new StoreImage();
+        $newImage->name = $imageName;
+        $newImage->save();
+
+        return view('admin.employes.index');
+
     }
 
     /**

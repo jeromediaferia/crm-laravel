@@ -34,5 +34,9 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function(){
     Route::resource('employes', 'Admin\EmployeController');
 });
 
+Route::get('private-image/{imageName}', function($imageName){
+    dd(storage_path('app/prive/images/'.$imageName));
+});
+
 
 
