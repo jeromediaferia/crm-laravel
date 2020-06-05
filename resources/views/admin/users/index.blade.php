@@ -138,6 +138,7 @@
                                     newError(data);
                                 } else {
                                     // Si je n'ai pas d'erreur je lance ma fonction
+                                    newTab(data);
                                 }
                             })
                             .catch(function (error) {
@@ -148,12 +149,41 @@
                     else{
                         // Exécute ajax
                         // @link: https://api.jquery.com/jquery.ajax/
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': token
+                            }
+                        });
+                        $.ajax({
+                            url: "",
+                            method: "POST",
+                            data: {
+                                name: name,
+                                email: email,
+                                password: password
+                            },
+                            dataType: 'json',
+                            success: function(data){
+                                // Si on a un code 200
+                                // puis si j'ai errors ou rien
+                                if(data[0] === 'Errors'){
+                                    newError(data);
+                                } else {
+                                    newTab(data);
+                                }
+                            },
+                            error: function(errors){
+                                console.log(errors);
+                            }
+                        });
+
+
                     } // Fin de jQuery
 
                     /********************************************************************
                      J'ai créé deux fonctions qui me permettent d'injecter les données
                      ********************************************************************/
-                    let newTab = function(tab){
+                    let newTab = function(data){
                         // Si je n'ai pas d'erreur je vide le formulaire
                         form.reset();
                         errorElement.classList.add('d-none');
