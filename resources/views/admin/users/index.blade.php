@@ -97,6 +97,27 @@
                     // On récupère le tableau
                     let table = document.querySelector('#tableBody');
 
+                    if(window.fetch){
+                        // exécuter ma requête fetch ici
+                        // @link : https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch
+                        let myInit = '';
+                        fetch('', myInit)
+                            .then(function (response) {
+                                // Je vérifie que j'ai bien un retour code : 200
+                            })
+                            .then(function (data) {
+                                // Une fois que j'ai passé le test, je récupère les informations
+                            })
+                            .catch(function (error) {
+                                // Ici l'erreur, si le fetch n'a pas pu fonctionner
+                                console.log('Il y a eu un problème avec l\'opération fetch : ' + error.message);
+                            });
+                    } // Fin du Fetch
+                    else{
+                        // Exécute ajax
+                        // @link: https://api.jquery.com/jquery.ajax/
+                    }
+
                 });
             })(); // Fin de mon script
         });
